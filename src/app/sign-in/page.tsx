@@ -50,52 +50,59 @@ export default function SignIn() {
 
   return (
     <form
-      onSubmit={onSubmit}
-      className="max-w-md w-full mx-auto p-6 border-2 border-gray-400 rounded-lg shadow-md flex flex-col gap-4"
-    >
-      <h1 className="text-3xl font-bold text-center">Sign In</h1>
+  onSubmit={onSubmit}
+  className="max-w-md w-full mx-auto p-6 border-2 border-purple-300 bg-white rounded-lg shadow-lg mt-12 flex flex-col gap-4"
+>
+  <h1 className="text-3xl font-bold text-center text-purple-700">Sign In</h1>
 
-      <div>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className={`w-full px-4 py-2 rounded-md border ${
-            emailError ? "border-red-500" : "border-gray-300"
-          } focus:outline-none focus:ring-2 focus:ring-blue-500`}
-          aria-invalid={emailError ? "true" : "false"}
-        />
-        {emailError && (
-          <p className="text-red-600 text-sm mt-1">{emailError}</p>
-        )}
-      </div>
+  <div>
+    <input
+      type="email"
+      placeholder="Email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      className={`w-full px-4 py-3 rounded-md border text-lg bg-purple-50 placeholder-purple-300 ${
+        emailError
+          ? "border-red-500 focus:ring-red-500"
+          : "border-purple-300 focus:ring-purple-500"
+      } focus:outline-none focus:ring-2`}
+      aria-invalid={emailError ? "true" : "false"}
+    />
+    {emailError && (
+      <p className="text-red-600 text-sm mt-1">{emailError}</p>
+    )}
+  </div>
 
-      <div>
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className={`w-full px-4 py-2 rounded-md border ${
-            passwordError ? "border-red-500" : "border-gray-300"
-          } focus:outline-none focus:ring-2 focus:ring-blue-500`}
-          aria-invalid={passwordError ? "true" : "false"}
-        />
-        {passwordError && (
-          <p className="text-red-600 text-sm mt-1">{passwordError}</p>
-        )}
-      </div>
+  <div>
+    <input
+      type="password"
+      placeholder="Password"
+      value={password}
+      onChange={(e) => setPassword(e.target.value)}
+      className={`w-full px-4 py-3 rounded-md border text-lg bg-purple-50 placeholder-purple-300 ${
+        passwordError
+          ? "border-red-500 focus:ring-red-500"
+          : "border-purple-300 focus:ring-purple-500"
+      } focus:outline-none focus:ring-2`}
+      aria-invalid={passwordError ? "true" : "false"}
+    />
+    {passwordError && (
+      <p className="text-red-600 text-sm mt-1">{passwordError}</p>
+    )}
+  </div>
 
-      <button
-        type="submit"
-        disabled={loading || emailError !== null || passwordError !== null}
-        className="w-full bg-blue-500 text-white py-2 rounded-md font-bold disabled:bg-blue-300"
-      >
-        {loading ? "Loading..." : "Sign In"}
-      </button>
+  <button
+    type="submit"
+    disabled={loading || emailError !== null || passwordError !== null}
+    className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-md font-bold transition disabled:bg-purple-300"
+  >
+    {loading ? "Loading..." : "Sign In"}
+  </button>
 
-      {error && <p className="text-red-600 text-center mt-2">{error.message}</p>}
-    </form>
+  {error && (
+    <p className="text-red-600 text-center mt-2">{error.message}</p>
+  )}
+</form>
+
   );
 }

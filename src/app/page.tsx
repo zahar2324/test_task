@@ -10,6 +10,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import AuthWrapper from "@/components/AuthWrapper";
 import Hero from "@/components/Hero";
 import List from "@/components/List";
+import CreateRoom from "@/components/CreateRoom";
 
 export default function HomePage() {
   const router = useRouter();
@@ -45,88 +46,111 @@ export default function HomePage() {
     router.push("/sign-in");
   };
 
-  // --- Окремі блоки для різних станів ---
+ 
   const AuthContent = (
-    <div className="max-w-md w-full mx-auto p-6 border-2 border-gray-400 rounded-lg shadow-md text-center">
-      <h1 className="text-2xl font-bold mb-4">Welcome, {user?.email}!</h1>
-      <p className="mb-6">You are logged in.</p>
-      <button
-        onClick={handleLogout}
-        className="bg-red-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-red-600 transition"
-      >
-        Log Out
-      </button>
-      <Hero />
-    </div>
+    <>
+
+
+<div className="mb-30 mt-30 max-w-md w-full mx-auto p-8 border-2 border-purple-400 rounded-xl shadow-lg bg-purple-50 text-center">
+  <h1 className="text-3xl font-extrabold mb-5 text-purple-700">
+    Welcome, {user?.email}!
+  </h1>
+  <p className="mb-8 text-purple-600 text-lg font-medium">
+    You are logged in.
+  </p>
+
+  <button
+    onClick={handleLogout}
+    className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold shadow-md transition"
+  >
+    Log Out
+  </button>
+
+  
+</div>
+
+<CreateRoom />
+
+    </>
+    
   );
 
   const GuestContent = (
-    <div className="max-w-md w-full mx-auto p-6 border-2 border-gray-400 rounded-lg shadow-md">
-      <h1 className="text-3xl font-bold mb-6 text-center">Create account</h1>
-      {loading ? (
-        <div className="text-center text-lg font-semibold">Loading...</div>
-      ) : (
-        <>
-          <div className="mb-4">
-            <input
-              type="email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              placeholder="Email"
-              required
-              className={`w-full px-4 py-2 rounded-md border text-lg ${
-                !email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-                  ? "border-gray-300 focus:ring-blue-500 focus:outline-none focus:ring-2"
-                  : "border-red-500 focus:ring-red-500 focus:outline-none focus:ring-2"
-              }`}
-            />
-          </div>
-          <div className="mb-4">
-            <input
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              placeholder="Password (min. 6 characters)"
-              required
-              minLength={6}
-              className={`w-full px-4 py-2 rounded-md border text-lg ${
-                password.length >= 6 || password.length === 0
-                  ? "border-gray-300 focus:ring-blue-500 focus:outline-none focus:ring-2"
-                  : "border-red-500 focus:ring-red-500 focus:outline-none focus:ring-2"
-              }`}
-            />
-          </div>
-          <button
-            className="w-full bg-yellow-500 text-black py-2 rounded-md font-bold disabled:bg-yellow-300"
-            onClick={onSubmit}
-            disabled={
-              loading ||
-              !email ||
-              !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
-              password.length < 6
-            }
-          >
-            SIGN UP
+    <div className="mb-20 max-w-md w-full mx-auto p-6 border-2 border-purple-300 bg-white rounded-lg shadow-lg mt-12">
+  <h1 className="text-3xl font-bold mb-6 text-center text-purple-700">Create account</h1>
+
+  {loading ? (
+    <div className="text-center text-lg font-semibold text-purple-600">Loading...</div>
+  ) : (
+    <div className="">
+      <div className="mb-4">
+        <input
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          placeholder="Email"
+          required
+          className={`w-full px-4 py-3 rounded-md border text-lg bg-purple-50 placeholder-purple-300 ${
+            !email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+              ? "border-purple-300 focus:ring-purple-500 focus:outline-none focus:ring-2"
+              : "border-red-500 focus:ring-red-500 focus:outline-none focus:ring-2"
+          }`}
+        />
+      </div>
+
+      <div className="mb-4">
+        <input
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          placeholder="Password (min. 6 characters)"
+          required
+          minLength={6}
+          className={`w-full px-4 py-3 rounded-md border text-lg bg-purple-50 placeholder-purple-300 ${
+            password.length >= 6 || password.length === 0
+              ? "border-purple-300 focus:ring-purple-500 focus:outline-none focus:ring-2"
+              : "border-red-500 focus:ring-red-500 focus:outline-none focus:ring-2"
+          }`}
+        />
+      </div>
+
+      <button
+        className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-md font-bold transition disabled:bg-purple-300"
+        onClick={onSubmit}
+        disabled={
+          loading ||
+          !email ||
+          !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
+          password.length < 6
+        }
+      >
+        SIGN UP
+      </button>
+
+      <div className="flex flex-col items-center gap-2 mt-6">
+        <p className="text-purple-500">Already have an account?</p>
+        <Link href="/sign-in" passHref>
+          <button className="bg-purple-500 text-white px-4 py-2 rounded-md font-semibold hover:bg-purple-600 transition">
+            Sign In
           </button>
-          <div className="flex flex-col items-center gap-2 mt-6">
-            <p>Already have an account?</p>
-            <Link href="/sign-in" passHref>
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-md font-semibold hover:bg-blue-700 transition">
-                Sign In
-              </button>
-            </Link>
-          </div>
-        </>
-      )}
+        </Link>
+      </div>
     </div>
+  )}
+</div>
+
   );
 
   // --- Один return, умовний рендер ---
   return (
     <div>
-      {/* Спільний контент */}
-      <List/>
-      {user ? AuthContent : GuestContent}
+     <div className="mt-10">
+    <Hero />
+  </div>
+
+        {user ? AuthContent : GuestContent}
+     
+    
     </div>
   );
 }
