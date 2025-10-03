@@ -1,9 +1,9 @@
-// lib/firebase.ts
+
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-// Твої ключі з Firebase Console -> Project Settings -> SDK setup
+
 const firebaseConfig = {
 
   apiKey: "AIzaSyBbSW4rQjgQ1N7fs9mTZtBl3dZnYypAZ_E",

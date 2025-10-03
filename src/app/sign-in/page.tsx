@@ -21,7 +21,7 @@ export default function SignIn() {
     }
   }, [user, router]);
 
-  // 🔍 Real-time validation
+  
   useEffect(() => {
     if (!email) {
       setEmailError("Email is required");

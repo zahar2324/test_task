@@ -1,11 +1,8 @@
+
 import React from "react";
+import { PopUpProps } from "@/types/popup";
 
-interface PopUpProps {
-  message: string;
-  onOk: () => void;
-}
-
-const PopUp: React.FC<PopUpProps> = ({ message, onOk }) => {
+export default function PopUp({ message, onOk }: PopUpProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-purple-700/80 via-purple-900/80 to-indigo-800/80 backdrop-blur-sm">
       <div className="bg-gradient-to-br from-purple-100 via-purple-200 to-purple-300 rounded-2xl shadow-2xl p-8 max-w-sm w-full border-2 border-purple-400 text-center">
@@ -20,6 +17,4 @@ const PopUp: React.FC<PopUpProps> = ({ message, onOk }) => {
       </div>
     </div>
   );
-};
-
-export default PopUp;
+}

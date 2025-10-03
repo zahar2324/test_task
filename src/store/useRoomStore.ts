@@ -1,12 +1,7 @@
 import { create } from "zustand";
 import { db } from "@/services/firebase";
 import { collection, getDocs } from "firebase/firestore";
-
-interface Room {
-  id: string;
-  name: string;
-  description: string;
-}
+import { Room } from "@/types/rooms";
 
 interface RoomsState {
   rooms: Room[];

@@ -1,4 +1,4 @@
-// /components/AuthWrapper.tsx
+
 "use client";
 
 import { useState, useEffect, ReactNode } from "react";
@@ -23,7 +23,7 @@ export default function AuthWrapper({ children, fallback = null }: AuthWrapperPr
     return () => unsubscribe();
   }, []);
 
-  if (loading) return <p>Loading...</p>; // спінер чи просто Loading
+  if (loading) return <p>Loading...</p>; 
 
   return <>{user ? children : fallback}</>;
 }
