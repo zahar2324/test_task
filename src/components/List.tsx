@@ -7,6 +7,7 @@ import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/services/firebase";
 import PopUp from "./PopUp";
 import Skeleton from "./Skeleton";
+import { useRouter } from "next/navigation";
 
 export default function RoomList() {
   const { rooms, fetchRooms } = useRoomsStore();
@@ -20,6 +21,8 @@ export default function RoomList() {
 
   const [showPopUp, setShowPopUp] = useState(false);
   const [roomToDelete, setRoomToDelete] = useState<string | null>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     fetchRooms().finally(() => setLoading(false));
@@ -84,6 +87,11 @@ export default function RoomList() {
     setUpdating(false);
   };
 
+
+  const handleRoomClick = (id: string) => {
+    router.push(`/Rooms/${id}`);
+  };
+
   return (
     <>
       {showPopUp && (
@@ -116,7 +124,9 @@ export default function RoomList() {
               {rooms.map((room) => (
                 <li
                   key={room.id}
-                  className="bg-purple-50 border border-purple-200 rounded-lg p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between"
+                  className="bg-purple-50 border border-purple-200 rounded-lg p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between cursor-pointer"
+                  onClick={() => handleRoomClick(room.id)}
+                  title="Перейти до кімнати"
                 >
                   <div>
                     <div className="flex items-center gap-3 mb-2">
@@ -175,7 +185,10 @@ export default function RoomList() {
                     ) : (
                       <>
                         <button
-                          onClick={() => startEditing(room)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            startEditing(room);
+                          }}
                           className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-md flex items-center gap-2 transition"
                           title="Редагувати кімнату"
                         >
@@ -184,7 +197,10 @@ export default function RoomList() {
                         </button>
 
                         <button
-                          onClick={() => confirmDelete(room.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            confirmDelete(room.id);
+                          }}
                           disabled={deletingId === room.id}
                           className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md flex items-center gap-2 transition disabled:opacity-50 disabled:cursor-not-allowed"
                           title="Видалити кімнату"

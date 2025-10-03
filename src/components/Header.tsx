@@ -8,7 +8,7 @@ const navItems = [
   { label: 'Home', href: '/' },
   { label: 'Rooms', href: '/Rooms' },
   { label: 'Create Room', href: '/Create-Rooms' },
-  { label: 'Profile', href: '/profile' },
+  { label: 'Booked Rooms', href: '/Booked-Rooms' },
   { label: 'Sign-in', href: '/sign-in' },
 ];
 
